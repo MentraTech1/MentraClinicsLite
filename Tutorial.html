@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#0F172A">
+    <title>MentraClinics | دليل الاستخدام الشامل</title>
+
+    <link rel="icon" href="assets/logo.png">
+    <link rel="manifest" href="manifest.json">
+
+    <!-- الخطوط والأيقونات والتصميم -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <script src="assets/Tailwind.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body { font-family: 'Cairo', sans-serif; background-color: #F8FAFC; overflow-x: hidden; scroll-behavior: smooth; }
+        
+        /* تأثيرات الظهور عند التمرير */
+        .fade-up { animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; transform: translateY(30px); }
+        @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+        
+        /* تدرج الخلفية البطل */
+        .hero-bg { background: linear-gradient(135deg, #0F172A 0%, #0284C7 100%); position: relative; overflow: hidden; }
+        .hero-bg::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(14,165,233,0.1) 0%, transparent 50%); animation: rotate 20s linear infinite; }
+        @keyframes rotate { 100% { transform: rotate(360deg); } }
+
+        /* تأثير الصورة */
+        .step-img { transition: transform 0.4s ease, box-shadow 0.4s ease; border-radius: 1rem; border: 4px solid white; box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
+        .step-img:hover { transform: translateY(-5px) scale(1.02); box-shadow: 0 20px 40px rgba(14,165,233,0.2); }
+    </style>
+</head>
+<body class="text-slate-800">
+
+    <!-- ================= NAVBAR ================= -->
+    <nav class="fixed w-full z-50 bg-white/95 backdrop-blur-md border-b border-slate-100 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16 md:h-20">
+            <div class="flex items-center gap-2 cursor-pointer" onclick="window.location.href='index.html'">
+                <div class="w-8 h-8 md:w-10 md:h-10 rounded-xl bg-gradient-to-br from-[#0284C7] to-[#0EA5E9] flex items-center justify-center text-white shadow-lg">
+                    <i class="fas fa-stethoscope md:text-xl"></i>
+                </div>
+                <span class="font-black text-lg md:text-2xl text-[#0F172A]">Mentra <span class="text-[#0EA5E9]">Clinics</span>        <span class="bg-slate-200 text-slate-700 text-[9px] md:text-[10px] font-black px-1.5 py-0.5 rounded ml-1 shrink-0">LITE</span></span>
+            </div>
+            <a href="index.html" class="text-sm font-bold text-slate-500 hover:text-[#0284C7] bg-slate-50 hover:bg-sky-50 px-4 py-2 rounded-xl transition-colors border border-slate-100 flex items-center gap-2">
+                العودة للرئيسية <i class="fas fa-arrow-left"></i>
+            </a>
+        </div>
+    </nav>
+
+    <!-- ================= HERO SECTION ================= -->
+    <section class="hero-bg pt-32 pb-20 md:pt-40 md:pb-28 text-center px-4">
+        <div class="relative z-10 max-w-3xl mx-auto fade-up">
+            <span class="bg-sky-500/20 text-sky-200 border border-sky-400/30 px-4 py-1.5 rounded-full text-xs font-black tracking-widest mb-6 inline-block">شرح تفصيلي للنظام</span>
+            <h1 class="text-3xl md:text-5xl font-black text-white leading-tight mb-6">دليلك لإتقان إدارة عيادتك عبر <br><span class="text-[#0EA5E9]">MentraClinics Lite</span></h1>
+            <p class="text-sm md:text-lg text-slate-300 font-semibold leading-relaxed">
+                تعرف على كيفية عمل النظام خطوة بخطوة. صُمم هذا النظام ليكون الأسهل، الأسرع، والأكثر أماناً بفضل تقنية حفظ البيانات المحلية (Offline) دون الحاجة للإنترنت.
+            </p>
+        </div>
+    </section>
+
+    <!-- ================= TUTORIAL STEPS ================= -->
+    <section class="py-16 md:py-24 bg-[#F8FAFC]">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16 md:space-y-24">
+
+            <!-- Step 0 -->
+            <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12 fade-up" style="animation-delay: 0.1s;">
+                <div class="w-full md:w-1/2 order-2 md:order-1">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-full bg-sky-100 text-[#0284C7] flex items-center justify-center font-black text-xl"><i class="fas fa-door-open"></i></div>
+                        <h2 class="text-2xl font-black text-[#0F172A]">١. تأسيس العيادة وتسجيل الدخول</h2>
+                    </div>
+                    <p class="text-slate-600 font-semibold leading-relaxed mb-4">
+                        تبدأ رحلتك من شاشة الدخول والتسجيل <span class="bg-slate-200 px-1 rounded text-xs font-mono text-slate-700">subscriptions.html</span>. نظراً لأن النظام محلي 100%، يمكنك تأسيس عيادتك بوضع اسم العيادة واسم الطبيب وتعيين رقم سري.
+                    </p>
+                    <ul class="space-y-2 text-sm font-bold text-slate-500">
+                        <li><i class="fas fa-check text-emerald-500 ml-2"></i> لا حاجة لإيميل أو إنترنت لتأسيس العيادة.</li>
+                        <li><i class="fas fa-check text-emerald-500 ml-2"></i> ميزة "الدخول السريع" بضغطة زر وتأكيد الباسورد.</li>
+                        <li><i class="fas fa-check text-emerald-500 ml-2"></i> تشفير كامل للبيانات على متصفحك.</li>
+                    </ul>
+                </div>
+                <div class="w-full md:w-1/2 order-1 md:order-2">
+                    <img src="assets/step.PNG" alt="شاشة الدخول" class="step-img w-full">
+                </div>
+            </div>
+
+            <!-- Step 1 -->
+            <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12 fade-up">
+                <div class="w-full md:w-1/2 order-1">
+                    <img src="assets/step1.PNG" alt="الرئيسية" class="step-img w-full">
+                </div>
+                <div class="w-full md:w-1/2 order-2">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-full bg-sky-100 text-[#0284C7] flex items-center justify-center font-black text-xl"><i class="fas fa-chart-pie"></i></div>
+                        <h2 class="text-2xl font-black text-[#0F172A]">٢. لوحة التحكم الرئيسية</h2>
+                    </div>
+                    <p class="text-slate-600 font-semibold leading-relaxed mb-4">
+                        فور دخولك، تستقبلك شاشة <span class="bg-slate-200 px-1 rounded text-xs font-mono text-slate-700">main.js</span> التي تعتبر مركز القيادة. توفر لك نظرة شاملة على أداء العيادة في ثوانٍ معدودة.
+                    </p>
+                    <ul class="space-y-2 text-sm font-bold text-slate-500">
+                        <li><i class="fas fa-check text-emerald-500 ml-2"></i> إحصائيات سريعة لعدد المرضى وكشوفات اليوم.</li>
+                        <li><i class="fas fa-check text-emerald-500 ml-2"></i> أزرار "الوصول السريع" لأكثر الشاشات استخداماً.</li>
+                        <li><i class="fas fa-check text-emerald-500 ml-2"></i> قوائم مصغرة تعرض أحدث المواعيد وأحدث المرضى المضافين.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12 fade-up">
+                <div class="w-full md:w-1/2 order-2 md:order-1">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-full bg-sky-100 text-[#0284C7] flex items-center justify-center font-black text-xl"><i class="fas fa-calendar-check"></i></div>
+                        <h2 class="text-2xl font-black text-[#0F172A]">٣. إدارة المواعيد والحجوزات</h2>
+                    </div>
+                    <p class="text-slate-600 font-semibold leading-relaxed mb-4">
+                        عبر شاشة <span class="bg-slate-200 px-1 rounded text-xs font-mono text-slate-700">appointments</span>، تنظم جدول عملك بكل سهولة. النظام مزود بتقنيات ذكية لمنع تجميد المتصفح أثناء البحث.
+                    </p>
+                    <ul class="space-y-2 text-sm font-bold text-slate-500">
+                        <li><i class="fas fa-check text-emerald-500 ml-2"></i> خاصية <strong>البحث الحي (Live Search)</strong> لاختيار المريض بسرعة فائقة.</li>
+                        <li><i class="fas fa-check text-emerald-500 ml-2"></i> تتبع حالات الموعد (انتظار، تم الكشف، ملغي).</li>
+                        <li><i class="fas fa-check text-emerald-500 ml-2"></i> حساب تلقائي "للأرباح الذكية" بناءً على المواعيد المكتملة.</li>
+                    </ul>
+                </div>
+                <div class="w-full md:w-1/2 order-1 md:order-2">
+                    <img src="assets/step2.PNG" alt="الحجوزات" class="step-img w-full">
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12 fade-up">
+                <div class="w-full md:w-1/2 order-1">
+                    <img src="assets/step3.PNG" alt="المرضى" class="step-img w-full">
+                </div>
+                <div class="w-full md:w-1/2 order-2">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-full bg-sky-100 text-[#0284C7] flex items-center justify-center font-black text-xl"><i class="fas fa-users"></i></div>
+                        <h2 class="text-2xl font-black text-[#0F172A]">٤. سجل المرضى والملف الطبي</h2>
+                    </div>
+                    <p class="text-slate-600 font-semibold leading-relaxed mb-4">
+                        شاشة <span class="bg-slate-200 px-1 rounded text-xs font-mono text-slate-700">patients</span> هي الأرشيف السري لمرضاك. إضافة مريض جديد تتم في ثوانٍ، وتتيح لك الوصول للملف الطبي (EMR) لكل مريض.
+                    </p>
+                    <ul class="space-y-2 text-sm font-bold text-slate-500">
+                        <li><i class="fas fa-check text-emerald-500 ml-2"></i> حساب تلقائي للعمر بناءً على تاريخ الميلاد.</li>
+                        <li><i class="fas fa-check text-emerald-500 ml-2"></i> نافذة "الملف الطبي" التي تعرض Timeline (خط زمني) لجميع زيارات المريض السابقة.</li>
+                        <li><i class="fas fa-check text-emerald-500 ml-2"></i> إمكانية مراجعة الأدوية والروشتات القديمة التي صُرفت للمريض.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12 fade-up">
+                <div class="w-full md:w-1/2 order-2 md:order-1">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-black text-xl"><i class="fas fa-file-medical"></i></div>
+                        <h2 class="text-2xl font-black text-[#0F172A]">٥. غرفة الكشف وباني الروشتة</h2>
+                    </div>
+                    <p class="text-slate-600 font-semibold leading-relaxed mb-4">
+                        هذه هي أهم شاشة للطبيب <span class="bg-slate-200 px-1 rounded text-xs font-mono text-slate-700">visits</span>. مصممة لتسريع عملية الكشف وكتابة الروشتة وتقليل الوقت المهدر.
+                    </p>
+                    <ul class="space-y-2 text-sm font-bold text-slate-500">
+                        <li><i class="fas fa-check text-emerald-500 ml-2"></i> تسجيل العلامات الحيوية (Vitals) والشكوى والتشخيص.</li>
+                        <li><i class="fas fa-check text-emerald-500 ml-2"></i> عرض إحصائيات سريعة للمريض أثناء الكشف (عمره، فصيلة دمه، آخر زيارة).</li>
+                        <li><i class="fas fa-check text-emerald-500 ml-2"></i> <strong>باني الروشتة الذكي:</strong> يبحث في الأدوية حياً، مع إمكانية إضافة دواء جديد للقاعدة فوراً.</li>
+                        <li><i class="fas fa-check text-emerald-500 ml-2"></i> طباعة الروشتة بتصميم احترافي يحمل اسم العيادة وشعارها (Rx).</li>
+                    </ul>
+                </div>
+                <div class="w-full md:w-1/2 order-1 md:order-2">
+                    <img src="assets/step4.PNG" alt="غرفة الكشف" class="step-img w-full border-emerald-400">
+                </div>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12 fade-up">
+                <div class="w-full md:w-1/2 order-1">
+                    <img src="assets/step5.PNG" alt="دليل الأدوية" class="step-img w-full">
+                </div>
+                <div class="w-full md:w-1/2 order-2">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-full bg-sky-100 text-[#0284C7] flex items-center justify-center font-black text-xl"><i class="fas fa-pills"></i></div>
+                        <h2 class="text-2xl font-black text-[#0F172A]">٦. الدليل الطبي (Catalog)</h2>
+                    </div>
+                    <p class="text-slate-600 font-semibold leading-relaxed mb-4">
+                        شاشة <span class="bg-slate-200 px-1 rounded text-xs font-mono text-slate-700">catalog</span> تتيح لك تأسيس قاعدة البيانات الطبية الخاصة بعيادتك وتخصصك.
+                    </p>
+                    <ul class="space-y-2 text-sm font-bold text-slate-500">
+                        <li><i class="fas fa-check text-emerald-500 ml-2"></i> تقسيم الأصناف إلى (أدوية، تحاليل معملية، أشعة، خدمات عيادة).</li>
+                        <li><i class="fas fa-check text-emerald-500 ml-2"></i> إضافة وصف، مادة فعالة، وأسعار للخدمات لتسهيل الفوترة.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Step 6 -->
+            <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12 fade-up">
+                <div class="w-full md:w-1/2 order-2 md:order-1">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-full bg-sky-100 text-[#0284C7] flex items-center justify-center font-black text-xl"><i class="fas fa-calculator"></i></div>
+                        <h2 class="text-2xl font-black text-[#0F172A]">٧. الماليات والحسابات</h2>
+                    </div>
+                    <p class="text-slate-600 font-semibold leading-relaxed mb-4">
+                        شاشة <span class="bg-slate-200 px-1 rounded text-xs font-mono text-slate-700">accounting</span> تمكنك من السيطرة التامة على أموال العيادة وحساب الأرباح بدقة.
+                    </p>
+                    <ul class="space-y-2 text-sm font-bold text-slate-500">
+                        <li><i class="fas fa-check text-emerald-500 ml-2"></i> إصدار فواتير الكشوفات مع خاصية البحث الحي عن المريض.</li>
+                        <li><i class="fas fa-check text-emerald-500 ml-2"></i> تسجيل المصروفات التشغيلية مبوبة (إيجار، رواتب، مستلزمات).</li>
+                        <li><i class="fas fa-check text-emerald-500 ml-2"></i> فلترة بالتواريخ لعرض (إجمالي الإيرادات، إجمالي المصروفات، وصافي الربح).</li>
+                    </ul>
+                </div>
+                <div class="w-full md:w-1/2 order-1 md:order-2">
+                    <img src="assets/step6.PNG" alt="الماليات" class="step-img w-full">
+                </div>
+            </div>
+
+            <!-- Step 7 -->
+            <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12 fade-up">
+                <div class="w-full md:w-1/2 order-1">
+                    <img src="assets/step7.PNG" alt="الإعدادات" class="step-img w-full">
+                </div>
+                <div class="w-full md:w-1/2 order-2">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-full bg-sky-100 text-[#0284C7] flex items-center justify-center font-black text-xl"><i class="fas fa-cogs"></i></div>
+                        <h2 class="text-2xl font-black text-[#0F172A]">٨. إعدادات العيادة والأمان</h2>
+                    </div>
+                    <p class="text-slate-600 font-semibold leading-relaxed mb-4">
+                        شاشة <span class="bg-slate-200 px-1 rounded text-xs font-mono text-slate-700">settings</span> تدير خلفية النظام التقنية وملف الطبيب.
+                    </p>
+                    <ul class="space-y-2 text-sm font-bold text-slate-500">
+                        <li><i class="fas fa-check text-emerald-500 ml-2"></i> تعديل بيانات العيادة التي تُطبع على الروشتة.</li>
+                        <li><i class="fas fa-check text-emerald-500 ml-2"></i> مراقبة ذكية لمساحة التخزين المشفرة في متصفحك.</li>
+                        <li><i class="fas fa-check text-rose-500 ml-2"></i> <strong>منطقة الخطر:</strong> لتفريغ بيانات التشغيل أو عمل إعادة ضبط مصنع كامل للنظام.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Step 8 -->
+            <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12 fade-up pb-10">
+                <div class="w-full md:w-1/2 order-2 md:order-1">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center font-black text-xl"><i class="fas fa-database"></i></div>
+                        <h2 class="text-2xl font-black text-[#0F172A]">٩. النسخ الاحتياطي (الأهم!)</h2>
+                    </div>
+                    <p class="text-slate-600 font-semibold leading-relaxed mb-4">
+                        شاشة <span class="bg-slate-200 px-1 rounded text-xs font-mono text-slate-700">backup</span> هي طوق النجاة. نظراً لأن النسخة المجانية تحفظ البيانات على جهازك، يجب عليك عمل نسخة احتياطية دورياً لتجنب فقدان البيانات إذا تعطل الويندوز أو المتصفح.
+                    </p>
+                    <ul class="space-y-2 text-sm font-bold text-slate-500">
+                        <li><i class="fas fa-check text-emerald-500 ml-2"></i> تجميع بيانات العيادة بضغطة زر وتحميلها كملف (JSON) لتخزينه بأمان.</li>
+                        <li><i class="fas fa-check text-emerald-500 ml-2"></i> استعادة البيانات بالكامل من الملف في أي وقت أو على أي جهاز آخر.</li>
+                        <li><i class="fas fa-check text-emerald-500 ml-2"></i> أرشيف داخلي (Snapshots) يربط النسخ بعيادتك المحددة فقط.</li>
+                    </ul>
+                </div>
+                <div class="w-full md:w-1/2 order-1 md:order-2">
+                    <img src="assets/step8.PNG" alt="النسخ الاحتياطي" class="step-img w-full border-amber-400">
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ================= ADVERTISEMENT SECTION (PAID CLOUD) ================= -->
+    <section class="py-20 relative overflow-hidden bg-slate-900 border-t-8 border-[#0EA5E9]">
+        <!-- زينة الخلفية -->
+        <div class="absolute top-0 left-0 w-full h-full overflow-hidden opacity-20 pointer-events-none">
+            <i class="fas fa-cloud text-9xl text-sky-500 absolute -top-10 -left-10 transform rotate-12 blur-sm"></i>
+            <i class="fas fa-network-wired text-9xl text-emerald-500 absolute bottom-10 right-10 transform -rotate-12 blur-sm"></i>
+        </div>
+
+        <div class="max-w-5xl mx-auto px-4 relative z-10 text-center fade-up">
+            <span class="bg-gradient-to-r from-sky-500 to-emerald-500 text-white font-black text-xs px-4 py-1.5 rounded-full tracking-widest mb-6 inline-block shadow-lg">خطوة للارتقاء بالعيادة</span>
+            
+            <h2 class="text-3xl md:text-5xl font-black text-white mb-6 leading-tight">
+                هل يتسع عملك وتحتاج لربط <span class="text-emerald-400">فريق الاستقبال</span> بالطبيب؟
+            </h2>
+            
+            <p class="text-slate-300 text-base md:text-xl font-semibold max-w-3xl mx-auto mb-10 leading-relaxed">
+                النسخة المحلية (Lite) ممتازة لطبيب يدير عيادته بنفسه. ولكن إذا كان لديك موظف استقبال يحجز المواعيد، وتحتاج لأن تظهر هذه المواعيد على شاشتك في غرفة الكشف لحظياً، فأنت بحاجة إلى <strong class="text-white">النسخة السحابية المتقدمة (Cloud)</strong>.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 max-w-4xl mx-auto text-right">
+                <div class="bg-white/5 border border-white/10 p-6 rounded-2xl backdrop-blur-sm">
+                    <div class="text-emerald-400 text-2xl mb-3"><i class="fas fa-sync-alt"></i></div>
+                    <h3 class="text-white font-bold mb-2">مزامنة لحظية</h3>
+                    <p class="text-slate-400 text-xs font-semibold">يقوم الاستقبال بحجز المريض، ليظهر فوراً أمامك في غرفة الكشف بدون تدخل منك.</p>
+                </div>
+                <div class="bg-white/5 border border-white/10 p-6 rounded-2xl backdrop-blur-sm">
+                    <div class="text-sky-400 text-2xl mb-3"><i class="fas fa-user-shield"></i></div>
+                    <h3 class="text-white font-bold mb-2">تعدد المستخدمين</h3>
+                    <p class="text-slate-400 text-xs font-semibold">صلاحيات مخصصة (مدير، طبيب، موظف استقبال) لحماية البيانات المالية والطبية.</p>
+                </div>
+                <div class="bg-white/5 border border-white/10 p-6 rounded-2xl backdrop-blur-sm">
+                    <div class="text-purple-400 text-2xl mb-3"><i class="fas fa-file-pdf"></i></div>
+                    <h3 class="text-white font-bold mb-2">إرفاق التحاليل والأشعة</h3>
+                    <p class="text-slate-400 text-xs font-semibold">تتيح لك النسخة المدفوعة رفع ملفات PDF وصور لتبقى محفوظة في ملف المريض للأبد.</p>
+                </div>
+            </div>
+
+            <div class="bg-gradient-to-r from-emerald-600 to-teal-500 p-8 md:p-10 rounded-3xl shadow-2xl max-w-3xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 border border-emerald-400/50">
+                <div class="text-center md:text-right text-white">
+                    <h3 class="text-2xl font-black mb-2">احصل على النسخة السحابية الآن</h3>
+                    <p class="text-emerald-100 font-bold text-sm">تواصل معنا المبيعات لمعرفة الأسعار وإعداد نظامك الجديد.</p>
+                </div>
+                <a href="https://wa.me/201211934816" target="_blank" class="w-full md:w-auto bg-white text-emerald-700 hover:bg-emerald-50 px-8 py-4 rounded-xl font-black text-lg transition-transform hover:scale-105 shadow-xl flex items-center justify-center gap-3 dir-ltr">
+                    <i class="fab fa-whatsapp text-2xl text-emerald-500"></i> 01211934816
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="bg-slate-950 py-8 border-t border-slate-800 text-center">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-2">
+                <div class="w-6 h-6 rounded bg-gradient-to-br from-[#0284C7] to-[#0EA5E9] flex items-center justify-center text-white"><i class="fas fa-stethoscope text-xs"></i></div>
+                <span class="font-black text-white">Mentra<span class="text-[#0EA5E9]">Clinics</span></span>
+            </div>
+            <p class="text-xs font-bold text-slate-500">&copy; 2024 جميع الحقوق محفوظة. صُنع خصيصاً لتسهيل حياة الأطباء.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
