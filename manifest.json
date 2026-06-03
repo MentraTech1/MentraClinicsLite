@@ -2,7 +2,7 @@
   "name": "MentraClinics Lite",
   "short_name": "MentraClinicsLite",
   "description": "برنامج إدارة العيادات والمراكز الطبية المجاني. يعمل بدون إنترنت.",
-  "start_url": "./index.html",
+  "start_url": "https://mentratech1.github.io/MentraClinicsLite/index.html",
   "display": "standalone",
   "background_color": "#F8FAFC",
   "theme_color": "#0284C7",
@@ -29,7 +29,7 @@
       "name": "الذهاب للعيادة",
       "short_name": "العيادة",
       "description": "فتح لوحة تحكم العيادة",
-      "url": "./dashboard.html",
+      "url": "https://mentratech1.github.io/MentraClinicsLite/dashboard.html",
       "icons": [{ "src": "./assets/logo.png", "sizes": "192x192" }]
     }
   ]
