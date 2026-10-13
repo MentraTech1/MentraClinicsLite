@@ -7,9 +7,9 @@ const db = new Dexie("MentraClinicsDB11");
 // استخدام الإصدار 5 مع تصحيح الفهارس (Indexes)
 // تم إزالة علامة & من user_id لأنه مفتاح أجنبي (Foreign Key) ويتكرر بشكل طبيعي
 // علامة & تُستخدم فقط للقيم التي يمنع تكرارها في الجدول مثل رقم الهاتف أو الرقم القومي
-db.version(5).stores({
+db.version(6).stores({
     clinic_info: "id, clinic_name, phone, address, created_at, updated_at",
-    users: "++id, &phone, name, password, role, status, created_at, last_login, is_active",
+    users: "++id, &phone, &security_key, name, password, role, status, created_at, last_login, is_active",
     patients: "++id, name, &phone, national_id, email, address, birth_date, gender, blood_type, user_id, created_at, updated_at, is_active",
     appointments: "++id, date, patient_id, doctor_id, user_id, status, type, notes, created_at, updated_at", 
     visits: "++id, appointment_id, patient_id, doctor_id, user_id, date, visit_type, chief_complaint, diagnosis, notes, created_at, updated_at",
@@ -20,7 +20,7 @@ db.version(5).stores({
     invoices: "++id, patient_id, visit_id, doctor_id, user_id, date, total_amount, paid_amount, payment_status, payment_method, created_at, updated_at",
     expenses: "++id, date, category, amount, description, payment_method, created_by, user_id, created_at, updated_at",
     attachments: "++id, patient_id, visit_id, type, user_id, file_name, file_size, file_path, created_at",
-    system_logs: "++id, action, user_id, table_name, record_id, timestamp, ip_address", // تم إزالة old_values, new_values من الفهرس لتقليل حجم الداتا بيز
+    system_logs: "++id, action, user_id, table_name, record_id, timestamp, ip_address",
     backups: "++id, backup_name, backup_data, backup_type, created_at, file_size, is_encrypted"
 });
 
