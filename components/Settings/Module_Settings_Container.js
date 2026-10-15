@@ -1,3 +1,4 @@
+
 window.Module_Settings_Container = function({ clinicId, userId, showToast }) {
     const { useState, useEffect } = React;
 
@@ -5,7 +6,7 @@ window.Module_Settings_Container = function({ clinicId, userId, showToast }) {
     const [loading, setLoading] = useState(true);
 
     const [formData, setFormData] = useState({
-        clinic_id: null, clinic_name: '', owner_name: '', phone: '', password: '', security_key: '' // تمت إضافة security_key
+        clinic_id: null, clinic_name: '', owner_name: '', phone: '', password: '', security_key: ''
     });
 
     const [storageInfo, setStorageInfo] = useState({ usage: 0, quota: 0, percent: 0 });
@@ -26,7 +27,7 @@ window.Module_Settings_Container = function({ clinicId, userId, showToast }) {
                     setFormData({
                         clinic_id: clinic.id, clinic_name: clinic.clinic_name,
                         owner_name: user.name, phone: user.phone, password: user.password,
-                        security_key: user.security_key || '' // استدعاء المفتاح إن وجد
+                        security_key: user.security_key || '' 
                     });
                 }
 
@@ -64,13 +65,11 @@ window.Module_Settings_Container = function({ clinicId, userId, showToast }) {
         } catch (error) { showToast("فشل تحديث البيانات", "error"); }
     };
 
-    // الدالة الجديدة الخاصة بحفظ مفتاح الأمان
     const handleUpdateSecurityKey = async (e) => {
         e.preventDefault();
         try {
             if(!formData.security_key.trim()) return showToast("لا يمكن ترك مفتاح الأمان فارغاً", "error");
 
-            // التحقق من عدم استخدام المفتاح لحساب آخر (نادر الحدوث لكن للحيطة)
             const existingKey = await window.db.users.where('security_key').equals(formData.security_key.trim()).first();
             if (existingKey && existingKey.id !== userId) {
                 return showToast("هذا المفتاح مستخدم بالفعل، الرجاء توليد مفتاح آخر", "error");
@@ -85,8 +84,62 @@ window.Module_Settings_Container = function({ clinicId, userId, showToast }) {
         setDeleteType(type); setConfirmText(''); setIsConfirmModalOpen(true);
     };
 
+    // ==========================================
+    // معالجة عمليات الحذف الخطرة (تمت برمجتها هنا)
+    // ==========================================
     const handleExecuteDelete = async (e) => {
-        // ... (نفس الكود السابق بدون تغيير)
+        e.preventDefault();
+        if (confirmText !== 'مسح') return;
+
+        try {
+            if (deleteType === 'transactions') {
+                // 1. تفريغ بيانات التشغيل فقط للمستخدم الحالي
+                const operationalTables = [
+                    'patients', 'appointments', 'visits', 'vitals', 
+                    'prescriptions', 'prescription_items','medical_catalog','invoices', 'expenses', 'attachments'
+                ];
+
+                for (let table of operationalTables) {
+                    if (window.db[table]) {
+                        await window.db[table].where('user_id').equals(userId).delete();
+                    }
+                }
+                showToast("تم تفريغ بيانات التشغيل بنجاح", "success");
+                
+            } else if (deleteType === 'factory_reset') {
+                // 2. إعادة ضبط المصنع (مسح كل الجداول نهائياً)
+                const allTables = [
+                    'patients', 'appointments', 'visits', 'vitals', 
+                    'prescriptions', 'prescription_items', 'medical_catalog', 
+                    'invoices', 'expenses', 'attachments', 'users', 'clinic_info', 'backups'
+                ];
+
+                for (let table of allTables) {
+                    if (window.db[table]) {
+                        await window.db[table].clear();
+                    }
+                }
+
+                showToast("تم إعادة ضبط المصنع، جاري تسجيل الخروج...", "success");
+                
+                // مسح الجلسة والتوجه لشاشة الدخول
+                localStorage.removeItem('MentraClinics_Session');
+                localStorage.removeItem('MentraClinics_LastUserID');
+                
+                setTimeout(() => {
+                    window.location.replace('subscriptions.html');
+                }, 1500);
+                
+                return; // إنهاء الدالة لأن الصفحة ستتغير
+            }
+        } catch (error) {
+            console.error("Delete Error:", error);
+            showToast("حدث خطأ أثناء تنفيذ العملية", "error");
+        }
+
+        // إغلاق المودال وتفريغ النص
+        setIsConfirmModalOpen(false);
+        setConfirmText('');
     };
 
     if (loading) return <div className="flex justify-center p-20"><i className="fas fa-spinner fa-spin text-4xl text-[#0EA5E9]"></i></div>;

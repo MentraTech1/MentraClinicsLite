@@ -1,3 +1,4 @@
+
 window.Module_Backup_Container = function({ clinicId, userId, showToast }) {
     const { useState, useEffect, useRef } = React;
 
@@ -92,19 +93,32 @@ window.Module_Backup_Container = function({ clinicId, userId, showToast }) {
     };
 
     // ==========================================
-    // استعادة النسخة الاحتياطية (Restore)
+    // استعادة النسخة الاحتياطية (Restore) - (تم التعديل هنا لحل المشكلة)
     const executeRestore = async (jsonString) => {
         setLoading(true); setLogs([]);
         addLog("بدء عملية الاستعادة... يرجى عدم إغلاق المتصفح!");
         try {
             const backupData = JSON.parse(jsonString);
             const tablesToRestore = ['patients', 'appointments', 'visits', 'vitals', 'prescriptions', 'prescription_items', 'medical_catalog', 'invoices', 'expenses', 'attachments'];
+            
             for (let table of tablesToRestore) {
-                if (backupData[table]) {
+                if (backupData[table] && backupData[table].length > 0) {
                     addLog(`مسح البيانات الحالية وإحلال بيانات جدول: ${table}...`);
+                    
+                    // 1. مسح البيانات القديمة الخاصة بالعيادة الحالية فقط
                     await window.db[table].where('user_id').equals(userId).delete();
-                    addLog(`استعادة ${backupData[table].length} سجل...`);
-                    await window.db[table].bulkPut(backupData[table]);
+                    
+                    // 2. تحديث البيانات المسترجعة لترتبط بالعيادة والمستخدم الحالي
+                    const mappedData = backupData[table].map(record => {
+                        let updatedRecord = { ...record };
+                        if ('user_id' in updatedRecord) updatedRecord.user_id = userId;
+                        if ('clinic_id' in updatedRecord) updatedRecord.clinic_id = clinicId;
+                        return updatedRecord;
+                    });
+
+                    addLog(`استعادة ${mappedData.length} سجل...`);
+                    // 3. إدخال البيانات المحدثة
+                    await window.db[table].bulkPut(mappedData);
                 }
             }
             addLog("✅ اكتملت استعادة البيانات بنجاح!");
