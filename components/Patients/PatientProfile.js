@@ -46,17 +46,16 @@ window.PatientProfile = function({ patient, goBack, userId, showToast, calculate
 
                 const patientInvoices = await window.db.invoices.where('patient_id').equals(patient.id).toArray();
                 
-                // جلب المواعيد المعلقة (ليست مكتملة وليست ملغاة)
+                // جلب كل المواعيد (لعرض السجل الكامل في التبويب)
                 const allAppointments = await window.db.appointments.where('patient_id').equals(patient.id).toArray();
-                const pendingApps = allAppointments.filter(app => app.status !== 'completed' && app.status !== 'cancelled');
 
                 enrichedVisits.sort((a, b) => new Date(b.date) - new Date(a.date));
                 patientInvoices.sort((a, b) => new Date(b.date) - new Date(a.date));
-                pendingApps.sort((a, b) => new Date(a.date) - new Date(b.date)); // الأقرب فالأبعد
+                allAppointments.sort((a, b) => new Date(b.date) - new Date(a.date)); // الأحدث أولاً
 
                 setVisits(enrichedVisits);
                 setInvoices(patientInvoices);
-                setAppointments(pendingApps);
+                setAppointments(allAppointments);
 
             } catch (error) {
                 showToast("حدث خطأ في جلب بيانات المريض", "error");
@@ -70,6 +69,31 @@ window.PatientProfile = function({ patient, goBack, userId, showToast, calculate
     useEffect(() => { setCurrentPage(1); }, [activeTab, dateRange]);
 
     const handleDateChange = (e) => setDateRange({ ...dateRange, [e.target.name]: e.target.value });
+
+    // ==========================================
+    // دوال إدارة المواعيد داخل ملف المريض
+    // ==========================================
+    const handleUpdateApptStatus = async (id, newStatus) => {
+        try {
+            await window.db.appointments.update(id, { status: newStatus, updated_at: new Date().toISOString() });
+            showToast("تم تحديث حالة الموعد", "success");
+            setRefreshTrigger(prev => prev + 1);
+        } catch (error) {
+            showToast("حدث خطأ أثناء التحديث", "error");
+        }
+    };
+
+    const handleDeleteAppt = async (id) => {
+        if(confirm("هل أنت متأكد من حذف هذا الموعد نهائياً؟")) {
+            try {
+                await window.db.appointments.delete(id);
+                showToast("تم حذف الموعد", "success");
+                setRefreshTrigger(prev => prev + 1);
+            } catch (error) {
+                showToast("فشل الحذف", "error");
+            }
+        }
+    };
 
     // الفلاتر
     const filteredVisits = visits.filter(v => (!dateRange.from || v.date >= dateRange.from) && (!dateRange.to || v.date <= dateRange.to));
@@ -89,9 +113,12 @@ window.PatientProfile = function({ patient, goBack, userId, showToast, calculate
 
     if (loading) return <div className="flex justify-center items-center h-64"><i className="fas fa-spinner fa-spin text-4xl text-[#0EA5E9]"></i></div>;
 
+    // حساب المواعيد المعلقة فقط لعرضها في الإحصائيات العلوية
+    const pendingCount = appointments.filter(app => app.status !== 'completed' && app.status !== 'cancelled').length;
+
     const statsObj = {
         visitsCount: filteredVisits.length,
-        appsCount: appointments.length,
+        appsCount: pendingCount,
         totalRevenue: filteredInvoices.reduce((s, i) => s + Number(i.paid_amount || 0), 0)
     };
 
@@ -108,7 +135,9 @@ window.PatientProfile = function({ patient, goBack, userId, showToast, calculate
                 dateRange={dateRange} handleDateChange={handleDateChange} 
                 currentItems={currentItems} setSelectedPrescription={setSelectedPrescription} 
                 totalPages={totalPages} currentPage={currentPage} 
-                nextPage={nextPage} prevPage={prevPage} 
+                nextPage={nextPage} prevPage={prevPage}
+                handleUpdateApptStatus={handleUpdateApptStatus} 
+                handleDeleteAppt={handleDeleteAppt}
             />
 
             {isBookingModalOpen && (

@@ -94,39 +94,135 @@ window.Module_Backup_Container = function({ clinicId, userId, showToast }) {
 
     // ==========================================
     // استعادة النسخة الاحتياطية (Restore) - (تم التعديل هنا لحل المشكلة)
+   // ==========================================
+    // استعادة النسخة الاحتياطية (Restore) - (نسخة متقدمة وآمنة)
+    // ==========================================
+// ==========================================
+    // استعادة النسخة الاحتياطية (Restore) - النسخة المُحصنة (Bulletproof)
+    // ==========================================
     const executeRestore = async (jsonString) => {
         setLoading(true); setLogs([]);
-        addLog("بدء عملية الاستعادة... يرجى عدم إغلاق المتصفح!");
+        addLog("⏳ بدء عملية الاستعادة... يرجى عدم إغلاق المتصفح.");
+
+        await new Promise(resolve => setTimeout(resolve, 100));
+
         try {
             const backupData = JSON.parse(jsonString);
-            const tablesToRestore = ['patients', 'appointments', 'visits', 'vitals', 'prescriptions', 'prescription_items', 'medical_catalog', 'invoices', 'expenses', 'attachments'];
             
-            for (let table of tablesToRestore) {
-                if (backupData[table] && backupData[table].length > 0) {
-                    addLog(`مسح البيانات الحالية وإحلال بيانات جدول: ${table}...`);
-                    
-                    // 1. مسح البيانات القديمة الخاصة بالعيادة الحالية فقط
-                    await window.db[table].where('user_id').equals(userId).delete();
-                    
-                    // 2. تحديث البيانات المسترجعة لترتبط بالعيادة والمستخدم الحالي
-                    const mappedData = backupData[table].map(record => {
-                        let updatedRecord = { ...record };
-                        if ('user_id' in updatedRecord) updatedRecord.user_id = userId;
-                        if ('clinic_id' in updatedRecord) updatedRecord.clinic_id = clinicId;
-                        return updatedRecord;
-                    });
+            const tablesOrder = [
+                'medical_catalog', 'patients', 'appointments', 'visits', 
+                'vitals', 'prescriptions', 'prescription_items', 
+                'invoices', 'expenses', 'attachments'
+            ];
 
-                    addLog(`استعادة ${mappedData.length} سجل...`);
-                    // 3. إدخال البيانات المحدثة
-                    await window.db[table].bulkPut(mappedData);
+            const idMap = {};
+            tablesOrder.forEach(table => idMap[table] = {});
+
+            await window.db.transaction('rw', tablesOrder.map(t => window.db[t]), async () => {
+                
+                // مسح بيانات العيادة الحالية أولاً من كل الجداول لضمان النظافة
+                for (let table of tablesOrder) {
+                    await window.db[table].where('user_id').equals(userId).delete();
                 }
-            }
-            addLog("✅ اكتملت استعادة البيانات بنجاح!");
+
+                // بعد المسح، نقوم بجمع كل أرقام الهواتف المتبقية في قاعدة البيانات (التي تخص العيادات الأخرى)
+                const globalPhones = new Set();
+                const remainingPatients = await window.db.patients.toArray();
+                remainingPatients.forEach(p => {
+                    if (p.phone) globalPhones.add(p.phone.trim().toLowerCase());
+                });
+
+                for (let table of tablesOrder) {
+                    const records = backupData[table];
+                    if (!records || records.length === 0) continue;
+
+                    addLog(`⚙️ جاري معالجة وربط ${records.length} سجل في جدول: ${table}...`);
+                    
+                    const chunkSize = 1000;
+                    for (let i = 0; i < records.length; i += chunkSize) {
+                        const chunk = records.slice(i, i + chunkSize);
+                        const processedChunk = [];
+                        const oldIdsInChunk = [];
+
+                        for (let record of chunk) {
+                            const oldId = record.id;
+                            oldIdsInChunk.push(oldId);
+
+                            const newRecord = { ...record };
+                            delete newRecord.id; 
+
+                            newRecord.user_id = userId;
+                            if ('clinic_id' in newRecord) newRecord.clinic_id = clinicId;
+                            if ('doctor_id' in newRecord) newRecord.doctor_id = userId;
+
+                            // ==========================================
+                            // 🛡️ الخوارزمية المُحصنة لمعالجة تكرار رقم الهاتف
+                            // ==========================================
+                            if (table === 'patients') {
+                                let basePhone = newRecord.phone ? String(newRecord.phone).trim() : "";
+                                
+                                // 1. إذا كان الهاتف فارغاً تماماً في ملف الباك أب
+                                if (!basePhone) {
+                                    basePhone = "NO-PHONE-" + Date.now().toString().slice(-6);
+                                }
+
+                                // 2. حلقة تكرارية تضمن أن الرقم فريد 100% 
+                                // لو الرقم موجود، هنضيف له -C1، لو -C1 موجود هنخليه -C2 وهكذا..
+                                let finalPhone = basePhone;
+                                let counter = 1;
+                                
+                                while (globalPhones.has(finalPhone.toLowerCase())) {
+                                    finalPhone = `${basePhone}-C${counter}`;
+                                    counter++;
+                                }
+
+                                // 3. إضافة الرقم الجديد للقائمة عشان المريض اللي بعده في نفس الملف مياخدش نفس الرقم
+                                globalPhones.add(finalPhone.toLowerCase());
+                                newRecord.phone = finalPhone;
+                            }
+
+                            // ==========================================
+                            // ربط العلاقات (Foreign Keys Mapping)
+                            // ==========================================
+                            if (newRecord.patient_id && idMap['patients'][newRecord.patient_id]) 
+                                newRecord.patient_id = idMap['patients'][newRecord.patient_id];
+                                
+                            if (newRecord.appointment_id && idMap['appointments'][newRecord.appointment_id]) 
+                                newRecord.appointment_id = idMap['appointments'][newRecord.appointment_id];
+                                
+                            if (newRecord.visit_id && idMap['visits'][newRecord.visit_id]) 
+                                newRecord.visit_id = idMap['visits'][newRecord.visit_id];
+                                
+                            if (newRecord.prescription_id && idMap['prescriptions'][newRecord.prescription_id]) 
+                                newRecord.prescription_id = idMap['prescriptions'][newRecord.prescription_id];
+                                
+                            if (newRecord.catalog_id && idMap['medical_catalog'][newRecord.catalog_id]) 
+                                newRecord.catalog_id = idMap['medical_catalog'][newRecord.catalog_id];
+
+                            processedChunk.push(newRecord);
+                        }
+
+                        // إدخال الدفعة واستلام الـ IDs الجديدة بأمان تام
+                        const newIds = await window.db[table].bulkAdd(processedChunk, { allKeys: true });
+
+                        // حفظ الخريطة
+                        for (let j = 0; j < oldIdsInChunk.length; j++) {
+                            idMap[table][oldIdsInChunk[j]] = newIds[j];
+                        }
+                    }
+                }
+            });
+
+            addLog("✅ اكتملت استعادة البيانات بنجاح بدون أي تعارض!");
             showToast("تم استعادة النظام بنجاح، سيتم تحديث الصفحة...", "success");
             setTimeout(() => { window.location.reload(); }, 2000);
+
         } catch (error) {
-            addLog(`❌ فشل في قراءة أو استعادة الملف: ${error.message}`);
-            showToast("الملف غير صالح أو تالف", "error");
+            console.error(error);
+            addLog(`❌ خطأ حرج: تم التراجع عن كل العمليات.`);
+            addLog(`تفاصيل الخطأ: ${error.message}`);
+            showToast("فشل الاستعادة، يرجى مراجعة سجلات النظام", "error");
+        } finally {
             setLoading(false);
         }
     };

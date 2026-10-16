@@ -97,6 +97,28 @@ window.AppointmentsCalendar = function({ allAppointments, handleUpdateStatus, ha
         }
     };
 
+    // مكون القائمة المنسدلة الذكية للحالة
+    const StatusDropdown = ({ appt }) => (
+        <div className="relative inline-block w-28">
+            <select
+                value={appt.status}
+                onChange={(e) => handleUpdateStatus(appt.id, e.target.value)}
+                className={`w-full appearance-none px-3 py-1.5 rounded-lg text-[11px] md:text-xs font-black outline-none cursor-pointer text-center transition-colors shadow-sm ${
+                    appt.status === 'completed' ? 'bg-emerald-50 text-emerald-700 border border-emerald-200 hover:bg-emerald-100' :
+                    appt.status === 'cancelled' ? 'bg-rose-50 text-rose-700 border border-rose-200 hover:bg-rose-100' :
+                    'bg-amber-50 text-amber-700 border border-amber-200 hover:bg-amber-100'
+                }`}
+            >
+                <option value="pending">⏳ انتظار</option>
+                <option value="completed">✅ تم الكشف</option>
+                <option value="cancelled">❌ ملغي</option>
+            </select>
+            <i className={`fas fa-chevron-down absolute left-2 top-1/2 -translate-y-1/2 text-[9px] pointer-events-none ${
+                appt.status === 'completed' ? 'text-emerald-500' : appt.status === 'cancelled' ? 'text-rose-500' : 'text-amber-500'
+            }`}></i>
+        </div>
+    );
+
     // =========================================================
     // 1. العرض المستقل: جدول مواعيد اليوم بنظام Limit 3
     // =========================================================
@@ -188,7 +210,7 @@ window.AppointmentsCalendar = function({ allAppointments, handleUpdateStatus, ha
                                         <th className="px-6 py-4">الهاتف</th>
                                         <th className="px-6 py-4">نوع الكشف</th>
                                         <th className="px-6 py-4">ملاحظات</th>
-                                        <th className="px-6 py-4 text-center">الحالة</th>
+                                        <th className="px-6 py-4 text-center">تحديث الحالة</th>
                                         <th className="px-6 py-4 text-center">الإجراءات</th>
                                     </tr>
                                 </thead>
@@ -220,25 +242,12 @@ window.AppointmentsCalendar = function({ allAppointments, handleUpdateStatus, ha
                                                 {appt.notes || '-'}
                                             </td>
                                             <td className="px-6 py-4 text-center">
-                                                <span className={`px-2.5 py-1 rounded-full text-xs font-black inline-flex items-center gap-1 ${
-                                                    appt.status === 'completed' ? 'bg-emerald-100 text-emerald-700' :
-                                                    appt.status === 'cancelled' ? 'bg-rose-100 text-rose-700' :
-                                                    'bg-amber-100 text-amber-700'
-                                                }`}>
-                                                    {appt.status === 'completed' ? 'تم الكشف' : appt.status === 'cancelled' ? 'ملغي' : 'انتظار'}
-                                                </span>
+                                                {/* استخدام القائمة المنسدلة بدلاً من النص الثابت */}
+                                                <StatusDropdown appt={appt} />
                                             </td>
                                             <td className="px-6 py-4 text-center">
                                                 <div className="flex items-center justify-center gap-2">
-                                                    {(appt.status === 'pending' || appt.status === 'waiting') && (
-                                                        <button 
-                                                            onClick={() => handleUpdateStatus(appt.id, 'completed')} 
-                                                            title="تأكيد الكشف"
-                                                            className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 hover:bg-emerald-500 hover:text-white transition-colors flex items-center justify-center active:scale-95"
-                                                        >
-                                                            <i className="fas fa-check text-xs"></i>
-                                                        </button>
-                                                    )}
+                                                    {/* تمت إزالة زر تأكيد الكشف لأنه أصبح من ضمن القائمة المنسدلة */}
                                                     <button 
                                                         onClick={() => handleOpenEdit(appt)} 
                                                         title="تعديل الموعد"

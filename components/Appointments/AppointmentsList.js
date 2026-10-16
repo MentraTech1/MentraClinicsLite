@@ -11,6 +11,28 @@ window.AppointmentsList = function({ loading, appointmentsLength, currentItems, 
         );
     }
 
+    // مكون القائمة المنسدلة الذكية للحالة
+    const StatusDropdown = ({ appt }) => (
+        <div className="relative inline-block w-28">
+            <select
+                value={appt.status}
+                onChange={(e) => handleUpdateStatus(appt.id, e.target.value)}
+                className={`w-full appearance-none px-3 py-1.5 rounded-lg text-[11px] md:text-xs font-black outline-none cursor-pointer text-center transition-colors shadow-sm ${
+                    appt.status === 'completed' ? 'bg-emerald-50 text-emerald-700 border border-emerald-200 hover:bg-emerald-100' :
+                    appt.status === 'cancelled' ? 'bg-rose-50 text-rose-700 border border-rose-200 hover:bg-rose-100' :
+                    'bg-amber-50 text-amber-700 border border-amber-200 hover:bg-amber-100'
+                }`}
+            >
+                <option value="pending">⏳ انتظار</option>
+                <option value="completed">✅ تم الكشف</option>
+                <option value="cancelled">❌ ملغي</option>
+            </select>
+            <i className={`fas fa-chevron-down absolute left-2 top-1/2 -translate-y-1/2 text-[9px] pointer-events-none ${
+                appt.status === 'completed' ? 'text-emerald-500' : appt.status === 'cancelled' ? 'text-rose-500' : 'text-amber-500'
+            }`}></i>
+        </div>
+    );
+
     return (
         <div className="bg-transparent md:bg-white md:rounded-2xl md:border border-slate-100 md:shadow-sm overflow-hidden">
             {/* تصميم الجوال */}
@@ -31,14 +53,9 @@ window.AppointmentsList = function({ loading, appointmentsLength, currentItems, 
                         </div>
                         <div className="flex justify-between items-center pt-1">
                             <div>
-                                {appt.status === 'pending' && <span className="bg-amber-100 text-amber-700 px-3 py-1.5 rounded-lg text-xs font-bold"><i className="fas fa-hourglass-half mr-1"></i> انتظار</span>}
-                                {appt.status === 'completed' && <span className="bg-emerald-100 text-emerald-700 px-3 py-1.5 rounded-lg text-xs font-bold"><i className="fas fa-check mr-1"></i> تم الكشف</span>}
-                                {appt.status === 'cancelled' && <span className="bg-rose-100 text-rose-700 px-3 py-1.5 rounded-lg text-xs font-bold"><i className="fas fa-times mr-1"></i> ملغي</span>}
+                                <StatusDropdown appt={appt} />
                             </div>
                             <div className="flex gap-2">
-                                {appt.status === 'pending' && (
-                                    <button onClick={() => handleUpdateStatus(appt.id, 'completed')} className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 hover:bg-emerald-500 hover:text-white transition-colors flex items-center justify-center active:scale-95"><i className="fas fa-check"></i></button>
-                                )}
                                 <button onClick={() => handleDelete(appt.id)} className="w-10 h-10 rounded-xl bg-rose-50 text-rose-600 hover:bg-rose-500 hover:text-white transition-colors flex items-center justify-center active:scale-95"><i className="fas fa-trash-alt"></i></button>
                             </div>
                         </div>
@@ -54,7 +71,7 @@ window.AppointmentsList = function({ loading, appointmentsLength, currentItems, 
                             <th className="px-6 py-4">تاريخ ووقت الحجز</th>
                             <th className="px-6 py-4">اسم المريض</th>
                             <th className="px-6 py-4">نوع الكشف</th>
-                            <th className="px-6 py-4">الحالة</th>
+                            <th className="px-6 py-4 text-center">تحديث الحالة</th>
                             <th className="px-6 py-4 text-center">إجراءات</th>
                         </tr>
                     </thead>
@@ -71,15 +88,10 @@ window.AppointmentsList = function({ loading, appointmentsLength, currentItems, 
                                         {appt.type === 'new' ? 'كشف جديد' : 'استشارة / متابعة'}
                                     </span>
                                 </td>
-                                <td className="px-6 py-4">
-                                    {appt.status === 'pending' && <span className="bg-amber-100 text-amber-700 px-3 py-1 rounded-full text-xs font-bold"><i className="fas fa-hourglass-half mr-1"></i> انتظار</span>}
-                                    {appt.status === 'completed' && <span className="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full text-xs font-bold"><i className="fas fa-check mr-1"></i> تم الكشف</span>}
-                                    {appt.status === 'cancelled' && <span className="bg-rose-100 text-rose-700 px-3 py-1 rounded-full text-xs font-bold"><i className="fas fa-times mr-1"></i> ملغي</span>}
+                                <td className="px-6 py-4 text-center">
+                                    <StatusDropdown appt={appt} />
                                 </td>
-                                <td className="px-6 py-4 text-center space-x-2 space-x-reverse">
-                                    {appt.status === 'pending' && (
-                                        <button onClick={() => handleUpdateStatus(appt.id, 'completed')} title="تحديد كمكتمل" className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 hover:bg-emerald-500 hover:text-white transition-colors"><i className="fas fa-check"></i></button>
-                                    )}
+                                <td className="px-6 py-4 text-center">
                                     <button onClick={() => handleDelete(appt.id)} title="حذف" className="w-8 h-8 rounded-lg bg-rose-50 text-rose-600 hover:bg-rose-500 hover:text-white transition-colors"><i className="fas fa-trash-alt"></i></button>
                                 </td>
                             </tr>
