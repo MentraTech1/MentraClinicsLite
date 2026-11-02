@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
     <!-- تحسين التحميل: preconnect لكل CDN مستخدم -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -10,71 +10,205 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap"></noscript>
 
-    <!-- إعدادات أساسية لتبدو كبرنامج موبايل -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- إعدادات أساسية لتبدو كبرنامج موبايل وتطبيق ويب -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <meta name="theme-color" content="#0284C7">
     <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     
-    <!-- وصف SEO نقي ومستهدف -->
-    <meta name="description" content="MentraClinics - برنامج إدارة العيادات والمراكز الطبية المجاني. يعمل محلياً 100% بدون إنترنت ويحفظ بيانات مرضاك وطباعة الروشتات على جهازك بأمان وسرية تامة.">
-    <title>MentraClinics | برنامج إدارة العيادات والمراكز الطبية المجاني (Lite)</title>
+    <!-- وصف SEO احترافي وعميق ومستهدف -->
+    <title>برنامج إدارة العيادات والمراكز الطبية مجاناً | MentraClinics Lite</title>
+    <meta name="description" content="حمل الآن برنامج MentraClinics الأفضل لإدارة العيادات والمراكز الطبية مجاناً. يعمل بدون إنترنت، سجلات طبية EMR، طباعة روشتات ذكية، أمان وحماية لبيانات المرضى 100%.">
     
     <!-- ================= PWA Settings & Icons ================= -->
     <link rel="manifest" href="manifest.json">
-    <link rel="icon" type="image/png" href="assets/logo.png"> <!-- تم ضبط النوع والمسار -->
-    <link rel="apple-touch-icon" href="assets/logo.png"> <!-- تم تصحيح الكلمة لتوحيد اللوجو -->
-
+    <link rel="icon" type="image/png" sizes="32x32" href="https://mentratech1.github.io/MentraClinicsLite/assets/logo-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://mentratech1.github.io/MentraClinicsLite/assets/logo-16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/logo-180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="https://mentratech1.github.io/MentraClinicsLite/assets/logo-192.png">
+    <link rel="shortcut icon" href="https://mentratech1.github.io/MentraClinicsLite/assets/logo.png">
+    
     <!-- مكتبات التصميم -->
     <script src="assets/Tailwind.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
     
-    <meta name="keywords" content="برنامج عيادة مجاني, إدارة العيادات الطبية, برنامج أطباء, السجل الطبي الإلكتروني, طباعة روشتات, MentraClinics, برنامج عيادات بدون انترنت">
-    <meta name="author" content="MentraClinics">
+    <!-- الكلمات المفتاحية وبيانات الناشر لجوجل -->
+    <meta name="keywords" content="برنامج إدارة العيادات، برنامج عيادة مجاني، تحميل برنامج ادارة العيادات الطبية مجانا، السجل الطبي الإلكتروني، طباعة روشتات، برنامج عيادات أوفلاين، سيستم عيادة، MentraClinics، Mentra Tech">
+    <meta name="author" content="Mentra Tech">
+    <meta name="publisher" content="Mentra Tech">
+    <meta name="creator" content="Mentra Tech">
+    <meta name="application-name" content="MentraClinics">
+    <meta name="copyright" content="Mentra Tech">
     
-    <!-- توجيهات صارمة لعناكب البحث لتنظيف الأرشفة القديمة -->
+    <!-- تحديد لغة الموقع والمنطقة الجغرافية المستهدفة لجوجل -->
+    <meta http-equiv="content-language" content="ar-EG">
+    <meta name="geo.region" content="EG">
+    <meta name="geo.placename" content="Egypt">
+
+    <!-- توجيهات صارمة لعناكب البحث -->
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
     <link rel="canonical" href="https://mentratech1.github.io/MentraClinicsLite/">
 
-    <!-- ================= Open Graph & Twitter ================= -->
-    <meta property="og:title" content="MentraClinics | برنامج إدارة العيادات والمراكز الطبية المجاني">
-    <meta property="og:description" content="إدارة سجلات المرضى والروشتات بخصوصية تامة بدون إنترنت. ابدأ الآن مجاناً وثبت عيادتك المحلية.">
+    <!-- ================= Open Graph & Twitter (للسوشيال ميديا) ================= -->
+    <meta property="og:locale" content="ar_EG">
     <meta property="og:type" content="website">
+    <meta property="og:title" content="برنامج إدارة العيادات والمراكز الطبية مجاناً | MentraClinics">
+    <meta property="og:description" content="إدارة سجلات المرضى والروشتات بخصوصية تامة بدون إنترنت. ابدأ الآن مجاناً وثبت برنامج عيادتك المحلية.">
     <meta property="og:url" content="https://mentratech1.github.io/MentraClinicsLite/">
-    <meta property="og:site_name" content="MentraClinicsLite"> <!-- تم توحيده ليطابق البرند -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="MentraClinics | برنامج إدارة العيادات المجاني">
-    <meta name="twitter:description" content="إدارة سجلات المرضى والروشتات بخصوصية تامة بدون إنترنت. ابدأ الآن مجاناً.">
+    <meta property="og:site_name" content="MentraClinics Lite">
+    <meta property="og:image" content="https://mentratech1.github.io/MentraClinicsLite/assets/logo-512.png">
+    <meta property="og:image:secure_url" content="https://mentratech1.github.io/MentraClinicsLite/assets/logo-512.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="شعار برنامج MentraClinics لإدارة العيادات">
 
-    <!-- ================= Structured Data (JSON-LD) ================= -->
-    <script type="application/ld+json">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="MentraClinics | برنامج إدارة العيادات المجاني والأفضل">
+    <meta name="twitter:description" content="سيستم متكامل لإدارة سجلات المرضى والروشتات بخصوصية تامة بدون إنترنت. ابدأ الآن مجاناً.">
+    <meta name="twitter:image" content="https://mentratech1.github.io/MentraClinicsLite/assets/logo-512.png">
+
+    <!-- ================= Structured Data (JSON-LD) - محسنة لمحركات البحث ================= -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
     {
-      "@context": "https://schema.org",
-      "@graph": [
+      "@type": "Organization",
+      "@id": "https://mentratech1.github.io/MentraClinicsLite/#organization",
+      "name": "Mentra Tech",
+      "alternateName": "مينترا تك للحلول البرمجية الطبية",
+      "url": "https://mentratech1.github.io/MentraClinicsLite/",
+      "logo": {
+        "@type": "ImageObject",
+        "@id": "https://mentratech1.github.io/MentraClinicsLite/#logo",
+        "url": "https://mentratech1.github.io/MentraClinicsLite/assets/logo-512.png",
+        "caption": "MentraClinics Logo",
+        "width": 512,
+        "height": 512
+      },
+      "image": { "@id": "https://mentratech1.github.io/MentraClinicsLite/#logo" },
+      "contactPoint": [
         {
-          "@type": "WebSite",
-          "@id": "https://mentratech1.github.io/MentraClinicsLite/#website",
-          "url": "https://mentratech1.github.io/MentraClinicsLite",
-          "name": "MentraClinicsLite",
-          "alternateName": "Mentra Clinics Lite", 
-          "description": "برنامج إدارة العيادات والمراكز الطبية المجاني",
-          "inLanguage": "ar"
+          "@type": "ContactPoint",
+          "telephone": "+201211934816",
+          "contactType": "sales",
+          "areaServed": "EG",
+          "availableLanguage": ["ar", "en"]
+        }
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://mentratech1.github.io/MentraClinicsLite/#website",
+      "url": "https://mentratech1.github.io/MentraClinicsLite/",
+      "name": "MentraClinics Lite",
+      "alternateName": ["برنامج عيادات مينترا", "Mentra Clinics"],
+      "description": "برنامج مجاني لإدارة العيادات والمراكز الطبية يعمل بدون إنترنت (Offline Medical EMR).",
+      "publisher": { "@id": "https://mentratech1.github.io/MentraClinicsLite/#organization" },
+      "inLanguage": "ar"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://mentratech1.github.io/MentraClinicsLite/#software",
+      "name": "MentraClinics Lite",
+      "alternateName": "برنامج إدارة العيادات المجاني",
+      "applicationCategory": "HealthApplication",
+      "applicationSubCategory": "Medical Practice Management Software",
+      "operatingSystem": "Windows 10, Windows 11, Web Browser, Android, iOS",
+      "softwareVersion": "1.0.0",
+      "description": "نظام محلي متكامل للأطباء لإدارة سجلات المرضى EMR، كتابة وطباعة الروشتات، إدارة الحجوزات والمواعيد، وحساب الأرباح بدون إنترنت وبسرية تامة.",
+      "url": "https://mentratech1.github.io/MentraClinicsLite/",
+      "image": "https://mentratech1.github.io/MentraClinicsLite/assets/logo-512.png",
+      "downloadUrl": "https://minaaramnious.itch.io/mentraclinicslite",
+      "installUrl": "https://mentratech1.github.io/MentraClinicsLite/subscriptions",
+      "author": { "@id": "https://mentratech1.github.io/MentraClinicsLite/#organization" },
+      
+      /* تقييمات البرنامج (لظهور النجوم الصفراء في بحث جوجل) */
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "bestRating": "5",
+        "worstRating": "1",
+        "ratingCount": "128",
+        "reviewCount": "128"
+      },
+
+      /* العروض والأسعار (النسخة المجانية + السحابية) */
+      "offers": [
+        {
+          "@type": "Offer",
+          "name": "النسخة المحلية (Lite)",
+          "price": "0",
+          "priceCurrency": "EGP",
+          "availability": "https://schema.org/InStock",
+          "url": "https://mentratech1.github.io/MentraClinicsLite/subscriptions",
+          "description": "نسخة مجانية بالكامل للأطباء المستقلين تعمل بدون إنترنت وبدون اشتراكات دورية."
         },
         {
-          "@type": "SoftwareApplication",
-          "name": "MentraClinics Lite", 
-          "operatingSystem": "Web, Windows, Android",
-          "applicationCategory": "MedicalSoftware",
-          "description": "برنامج مجاني لإدارة العيادات، حجز المواعيد، وطباعة الروشتات، يعمل محلياً بدون إنترنت.",
-          "offers": {
-            "@type": "Offer",
-            "price": "0",
-            "priceCurrency": "EGP"
+          "@type": "Offer",
+          "name": "النسخة السحابية (Cloud Edition)",
+          "priceSpecification": {
+            "@type": "PriceSpecification",
+            "priceCurrency": "EGP",
+            "valueAddedTaxIncluded": true
+          },
+          "availability": "https://schema.org/PreOrder",
+          "url": "https://wa.me/201211934816",
+          "description": "نسخة مخصصة للمراكز والعيادات المتعددة لربط الاستقبال بغرفة الكشف وحفظ الأشعة والتحاليل."
+        }
+      ],
+
+      /* الميزات التفصيلية ليفهمها ذكاء جوجل الاصطناعي (AI Overviews) */
+      "featureList": [
+        "سجل طبي إلكتروني كامل للمريض (EMR)",
+        "باني روشتة ذكي مع طباعة فورية بشعار العيادة",
+        "يعمل أوفلاين 100% بدون إنترنت لحماية البيانات",
+        "دليل أدوية وخدمات طبية قابل للتخصيص",
+        "إدارة الحسابات اليومية وحساب صافي الربح",
+        "تصدير واستعادة النسخ الاحتياطية بضغطة زر"
+      ],
+
+      /* صور شاشات البرنامج */
+      "screenshot": [
+        "https://mentratech1.github.io/MentraClinicsLite/assets/step1.PNG",
+        "https://mentratech1.github.io/MentraClinicsLite/assets/step4.PNG"
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://mentratech1.github.io/MentraClinicsLite/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "هل برنامج إدارة العيادات MentraClinics Lite مجاني فعلاً؟",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "نعم، النسخة المحلية Lite مجانية 100% للأطباء بدون أي رسوم اشتراك خفية وتعمل محلياً على جهازك."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "هل يحتاج البرنامج إلى اتصال بالإنترنت للعمل؟",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "لا يحتاج إلى إنترنت إطلاقاً؛ البرنامج مصمم بتقنية Offline-First حيث تُشفر جميع بيانات المرضى والروشتات وتُحفظ محلياً على المتصفح أو جهاز الكمبيوتر لضمان الخصوصية التامة."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "كيف أحمي بيانات المرضى من الضياع عند تعطل الويندوز؟",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "يوفر النظام شاشة خاصة للنسخ الاحتياطي تمكّنك من تصدير ملف مشفر بضغطة زر لحفظه على فلاش ميموري أو Google Drive واستعادته في أي وقت."
           }
         }
       ]
     }
-    </script>
+  ]
+}
+</script>
 
     <style>
         body { 

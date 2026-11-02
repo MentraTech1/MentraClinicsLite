@@ -1,5 +1,3 @@
-# إعدادات العناكب (Robots.txt) لمشروع MentraLawyer
-
 User-agent: *
 
 # 1. الصفحات المسموح لمحركات البحث بأرشفتها (التسويقية والتعليمية)
@@ -16,5 +14,5 @@ Disallow: /pages/
 Disallow: /database.js
 Disallow: /sw.js
 
-# 3. رابط خريطة الموقع (استبدل الرابط برابط موقعك الحقيقي)
+# 3. رابط خريطة الموقع
 Sitemap: https://mentratech1.github.io/MentraClinicsLite/sitemap.xml

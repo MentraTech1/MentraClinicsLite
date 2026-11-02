@@ -1,26 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  
-  <!-- الصفحة الرئيسية (أهم صفحة) -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <!-- 1. الصفحة الرئيسية (Landing Page) -->
   <url>
     <loc>https://mentratech1.github.io/MentraClinicsLite/</loc>
-    <lastmod>2024-05-20</lastmod>
+    <lastmod>2026-11-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    
+    <!-- صور الصفحة الرئيسية لتعزيز الظهور في Google Images -->
+    <image:image>
+      <image:loc>https://mentratech1.github.io/MentraClinicsLite/assets/logo-512.png</image:loc>
+      <image:title>شعار برنامج إدارة العيادات MentraClinics Lite</image:title>
+      <image:caption>برنامج مجاني لإدارة العيادات والمراكز الطبية بدون إنترنت</image:caption>
+    </image:image>
   </url>
 
-  <!-- صفحة دليل التشغيل (مهمة للكلمات المفتاحية) -->
+  <!-- 2. صفحة دليل الاستخدام والشرح المصور (Tutorial) -->
   <url>
     <loc>https://mentratech1.github.io/MentraClinicsLite/Tutorial.html</loc>
-    <lastmod>2024-05-20</lastmod>
+    <lastmod>2026-11-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+
+    <!-- أرشفة صور الشرح والخطوات باللغة العربية -->
+    <image:image>
+      <image:loc>https://mentratech1.github.io/MentraClinicsLite/assets/step.PNG</image:loc>
+      <image:title>شاشة تسجيل الدخول وتأسيس العيادة</image:title>
+      <image:caption>خطوة تأسيس العيادة الطبية في نظام MentraClinics</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://mentratech1.github.io/MentraClinicsLite/assets/step1.PNG</image:loc>
+      <image:title>لوحة التحكم الرئيسية وإحصائيات العيادة</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://mentratech1.github.io/MentraClinicsLite/assets/step2.PNG</image:loc>
+      <image:title>جدول المواعيد والحجوزات الطبية</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://mentratech1.github.io/MentraClinicsLite/assets/step3.PNG</image:loc>
+      <image:title>سجل المرضى والملف الطبي الإلكتروني EMR</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://mentratech1.github.io/MentraClinicsLite/assets/step4.PNG</image:loc>
+      <image:title>غرفة الكشف الطبي وباني الروشتة الذكية</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://mentratech1.github.io/MentraClinicsLite/assets/step5.PNG</image:loc>
+      <image:title>دليل الأدوية والخدمات الطبية</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://mentratech1.github.io/MentraClinicsLite/assets/step6.PNG</image:loc>
+      <image:title>حسابات العيادة والإيرادات والمصروفات</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://mentratech1.github.io/MentraClinicsLite/assets/step7.PNG</image:loc>
+      <image:title>إعدادات العيادة والأمان</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://mentratech1.github.io/MentraClinicsLite/assets/step8.PNG</image:loc>
+      <image:title>النسخ الاحتياطي واستعادة بيانات العيادة</image:title>
+    </image:image>
   </url>
 
-  <!-- صفحة تسجيل الدخول / إنشاء المكتب -->
+  <!-- 3. بوابة الدخول والتسجيل (Subscriptions) -->
   <url>
     <loc>https://mentratech1.github.io/MentraClinicsLite/subscriptions.html</loc>
-    <lastmod>2024-05-20</lastmod>
+    <lastmod>2026-11-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
